@@ -4,7 +4,7 @@ from server.routes import user, mail
 
 app = Flask(__name__)
 
-print("\033[93m" + "server/__init__.py " + "Initializing the server instance and registering blueprints" + "\033[0m")
+print("\033[93m" + "server/__init__.py " + " => Initializing the server instance and registering blueprints" + "\033[0m")
 app.register_blueprint(user.userRoutes, url_prefix="/user")
 app.register_blueprint(mail.mailRoutes, url_prefix="/mail")
 
