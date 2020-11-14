@@ -12,7 +12,7 @@
 
 1. run flask app
 
-2. configure Postman to send "POST" request to http://localhost:8000/mail end point
+2. configure Postman to send "POST" request to http://localhost:8000/mail/send end point
 
 3. configure raw JSON input as:
 
