@@ -2,8 +2,8 @@ import smtplib
 
 
 def send_email(mail_data):
-    gmail_user = 'liyouhai59@gmail.com'
-    gmail_password = 'Altair0509'
+    gmail_user = 'YOUR GMAIL'
+    gmail_password = 'YOUR PASSWORD'
 
     to_addr = mail_data['recipient']
     cc = mail_data['cc']
