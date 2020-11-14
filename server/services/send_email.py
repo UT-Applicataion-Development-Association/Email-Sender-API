@@ -1,22 +1,30 @@
 import smtplib
 
 
-def send_email(email_data):
-    toaddr = 'youhaili59@outlook.com'
-    cc = ['youhai.li@mail.utoronto.ca']
-    bcc = ['youhai.li@mail.utoronto.ca']
-    fromaddr = 'youhaili59@outlook.com'
-    message_subject = "test title"
-    message_text = "test body"
-    message = "From: %s\r\n" % fromaddr \
-              + "To: %s\r\n" % toaddr \
+def send_email(mail_data):
+    gmail_user = 'liyouhai59@gmail.com'
+    gmail_password = 'Altair0509'
+
+    to_addr = mail_data['recipient']
+    cc = mail_data['cc']
+    bcc = mail_data['bcc']
+    from_addr = gmail_user
+    message_subject = mail_data['subject']
+    message_text = mail_data['body']
+    message = "From: %s\r\n" % from_addr \
+              + "To: %s\r\n" % to_addr \
               + "CC: %s\r\n" % ",".join(cc) \
               + "Subject: %s\r\n" % message_subject \
               + "\r\n" \
               + message_text
+    to_addrs = [to_addr] + cc + bcc
 
-    toaddrs = [toaddr] + cc + bcc
-    server = smtplib.SMTP('localhost')
-    server.set_debuglevel(1)
-    server.sendmail(fromaddr, toaddrs, message)
-    server.quit()
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.ehlo()
+        server.login(gmail_user, gmail_password)
+        server.sendmail(from_addr, to_addrs, message)
+        server.quit()
+        return 'Email sent!'
+    except smtplib.SMTPException:
+        return 'Something went wrong...'
