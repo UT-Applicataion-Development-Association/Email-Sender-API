@@ -1,9 +1,10 @@
-from flask import Blueprint, request
 from server.controllers import mail
+from flask import Flask, request
 
-mailRoutes = Blueprint("mailRoutes", __name__)
+app = Flask(__name__)
 
 
-@mailRoutes.route("/", methods=["POST"])
+@app.route("/", methods=["POST"])
 def handler():
     return mail.send_email(request.json)
+

@@ -5,8 +5,8 @@ from server.services import send_email
 def send_email(mail_data):
     # ensure all fields exist
     if 'sender' not in mail_data:
-        abort(400, description="Request body must contain subject.")
-    if 'recipients' not in mail_data:
+        abort(400, description="Request body must contain sender.")
+    if 'to' not in mail_data:
         abort(400, description="Request body must contain recipients.")
     if 'cc' not in mail_data:
         abort(400, description="Request body must contain ccs.")
@@ -20,11 +20,12 @@ def send_email(mail_data):
     # parse email parameters
     confirmed_mail_data = {
         'subject': mail_data['subject'],
-        'recipients': mail_data['recipients'],
+        'to': mail_data['to'],
         'cc': mail_data['cc'],
         'bcc': mail_data['bcc'],
-        'body': mail_data['body']
+        'body': mail_data['body'],
+        'attachment': mail_data['attachment']
     }
     # call send email
-    send_email(confirmed_mail_data)
+    send_email.send(confirmed_mail_data)
 

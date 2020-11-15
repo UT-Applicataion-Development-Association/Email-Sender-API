@@ -1,22 +1,23 @@
-import smtplib
+from flask_mail import Mail, Message
+from server.routes import mail
 
 
-def send_email(email_data):
-    toaddr = 'youhaili59@outlook.com'
-    cc = ['youhai.li@mail.utoronto.ca']
-    bcc = ['youhai.li@mail.utoronto.ca']
-    fromaddr = 'youhaili59@outlook.com'
-    message_subject = "test title"
-    message_text = "test body"
-    message = "From: %s\r\n" % fromaddr \
-              + "To: %s\r\n" % toaddr \
-              + "CC: %s\r\n" % ",".join(cc) \
-              + "Subject: %s\r\n" % message_subject \
-              + "\r\n" \
-              + message_text
+email = Mail(mail.app)
 
-    toaddrs = [toaddr] + cc + bcc
-    server = smtplib.SMTP('localhost')
-    server.set_debuglevel(1)
-    server.sendmail(fromaddr, toaddrs, message)
-    server.quit()
+
+def send(email_data):
+    msg = Message(email_data['subject'],
+                  sender='youhaili59@outlook.com',
+                  # default sender?
+                  recipients=[email_data['to'] + email_data['cc']
+                              + email_data['bcc']])
+    msg.body = "From: \r\n youhaili59@outlook.com"  \
+               + "To: %s\r\n" % email_data['to'] \
+               + "CC: %s\r\n" % ",".join(email_data['cc']) \
+               + "Subject: %s\r\n" % email_data['subject'] \
+               + "\r\n" \
+               + email_data['body']
+    with mail.app.open_resource(email_data['attachment']) as fp:
+        msg.attach(email_data['attachment'], fp.read())
+
+    email.send(msg)
