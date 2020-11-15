@@ -1,5 +1,5 @@
 from flask import abort
-from server.services import send_email
+from server.services import mail
 
 
 def send_email(mail_data):
@@ -23,9 +23,11 @@ def send_email(mail_data):
         'to': mail_data['to'],
         'cc': mail_data['cc'],
         'bcc': mail_data['bcc'],
-        'body': mail_data['body'],
-        'attachment': mail_data['attachment']
+        'body': mail_data['body']
     }
+    if mail_data['attachment']:
+        confirmed_mail_data['attachment'] = mail_data['attachment']
+
     # call send email
-    send_email.send(confirmed_mail_data)
+    mail.send(confirmed_mail_data)
 
