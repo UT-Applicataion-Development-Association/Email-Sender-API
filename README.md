@@ -10,6 +10,8 @@
 
 ## Testing
 
+0. go to /server/services/send_email.py and replace GMAIL settings with a valid gmail address and password
+
 1. run flask app
 
 2. configure Postman to send "POST" request to http://localhost:8000/mail/send end point
