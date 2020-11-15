@@ -1,8 +1,8 @@
 from flask_mail import Mail, Message
-from server.routes import mail
+from flask import Flask
 
-
-email = Mail(mail.app)
+app = Flask(__name__)
+email = Mail(app)
 
 
 def send(email_data):
@@ -17,7 +17,7 @@ def send(email_data):
                + "Subject: %s\r\n" % email_data['subject'] \
                + "\r\n" \
                + email_data['body']
-    with mail.app.open_resource(email_data['attachment']) as fp:
+    with app.open_resource(email_data['attachment']) as fp:
         msg.attach(email_data['attachment'], fp.read())
 
     email.send(msg)
