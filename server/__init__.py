@@ -3,10 +3,10 @@ from flask_mail import Mail
 from server.routes import user, mail
 
 app = Flask(__name__)
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'dinolii1220@gmail.com'
-app.config['MAIL_PASSWORD'] = 'jsqnxtglzlcfstyp'
+app.config.update(MAIL_SERVER='smtp.gmail.com',
+                  MAIL_PORT=465,
+                  MAIL_USERNAME='dinolii1220@gmail.com',
+                  MAIL_PASSWORD='jsqnxtglzlcfstyp')
 
 email = Mail(app)
 
