@@ -4,7 +4,9 @@ from server.routes import user, mail
 
 app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 8081
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'dinolii1220@gmail.com'
+app.config['MAIL_PASSWORD'] = 'jsqnxtglzlcfstyp'
 
 email = Mail(app)
 
