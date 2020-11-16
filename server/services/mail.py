@@ -5,7 +5,7 @@ import server
 def send(email_data):
     msg = Message(subject=email_data['subject'],
                   sender='dinolii1220@gmail.com',
-                  recipients=email_data['to'],
+                  recipients=[email_data['to']],
                   cc=email_data['cc'],
                   bcc=email_data['bcc'])
     msg.body = "From: \r\n dinolii1220@gmail.com" \
