@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_mail import Mail
 from server.routes import user, mail
-
+import platform
 app = Flask(__name__)
-app.config.update(dict(
+config = dict(
     DEBUG = True,
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_PORT = 587,
@@ -11,7 +11,10 @@ app.config.update(dict(
     MAIL_USE_SSL = False,
     MAIL_USERNAME = 'dinolii1220@gmail.com',
     MAIL_PASSWORD = 'jsqnxtglzlcfstyp',
-))
+)
+if platform.system().upper() == 'WINDOWS':
+    config['MAIL_PASSWORD'] = 'zcbxvyxocpagjxtw'
+app.config.update(config)
 
 
 email = Mail(app)
