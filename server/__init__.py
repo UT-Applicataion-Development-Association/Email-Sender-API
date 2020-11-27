@@ -2,8 +2,8 @@ from flask import Flask
 from flask_mail import Mail
 from flask_cors import CORS, cross_origin
 from server.routes import user, mail
-
 app = Flask(__name__)
+app.config.from_object('server.config.Config')
 email = Mail()
 cors = CORS(app)
 
