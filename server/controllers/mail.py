@@ -17,12 +17,13 @@ def send_email(mail_data):
     # if 'attachment' not in mail_data:
     #     abort(400, description="Request body must contain attachment list.")
 
+    parse_recipient = lambda recipient_list: [email_dict['email'] for email_dict in recipient_list]
     # parse email parameters
     confirmed_mail_data = {
         'subject': mail_data['subject'],
-        'to': [mail_data['to'][0]['email']],
-        'cc': mail_data['cc'],
-        'bcc': mail_data['bcc'],
+        'to': parse_recipient(mail_data['to']),
+        'cc': parse_recipient(mail_data['cc']),
+        'bcc': parse_recipient(mail_data['bcc']),
         'body': mail_data['body'],
         'attachment': []
     }
