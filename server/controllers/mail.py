@@ -14,20 +14,20 @@ def send_email(mail_data):
         abort(400, description="Request body must contain bccs.")
     if 'body' not in mail_data:
         abort(400, description="Request body must contain body.")
-    if 'attachment' not in mail_data:
-        abort(400, description="Request body must contain attachment list.")
+    # if 'attachment' not in mail_data:
+    #     abort(400, description="Request body must contain attachment list.")
 
     # parse email parameters
     confirmed_mail_data = {
         'subject': mail_data['subject'],
-        'to': mail_data['to'],
+        'to': [mail_data['to'][0]['email']],
         'cc': mail_data['cc'],
         'bcc': mail_data['bcc'],
         'body': mail_data['body'],
         'attachment': []
     }
-    if mail_data['attachment']:
-        confirmed_mail_data['attachment'].extend(mail_data['attachment'])
+    # if mail_data['attachment']:
+    #     confirmed_mail_data['attachment'].extend(mail_data['attachment'])
 
     # call send email
     mail.send(confirmed_mail_data)
