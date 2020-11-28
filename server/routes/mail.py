@@ -14,5 +14,11 @@ def handler():
 
 @mailRoutes.route("/attachmentUpload", methods=["POST"], strict_slashes=False)
 @cross_origin()
-def attachment_handler():
+def attachment_upload_handler():
     return mail.upload_attachment(request.get_json())
+
+
+@mailRoutes.route("/attachmentList", methods=["GET"], strict_slashes=False)
+@cross_origin()
+def attachment_list_handler():
+    return mail.get_attachment_list()

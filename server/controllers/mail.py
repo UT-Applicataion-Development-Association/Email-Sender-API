@@ -46,3 +46,7 @@ def upload_attachment(attachment_data):
     return attachment.upload(attachment_data)
 
 
+def get_attachment_list():
+    return jsonify(attachment.list_files())
+
+
