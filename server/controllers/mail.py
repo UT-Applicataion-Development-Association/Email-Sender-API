@@ -1,5 +1,5 @@
 from flask import abort
-from server.services import mail
+from server.services import mail, attachment
 
 
 def send_email(mail_data):
@@ -32,4 +32,15 @@ def send_email(mail_data):
 
     # call send email
     mail.send(confirmed_mail_data)
+
+
+def upload_attachment(attachment_data):
+    if 'filename' not in attachment_data:
+        abort(400, description="Request body must contain filename.")
+    if "/" in attachment_data['filename']:
+        abort(400, description="No sub-directories are allowed..")
+    if 'content' not in attachment_data:
+        abort(400, description="Request body must contain content.")
+    return attachment.upload(attachment_data)
+
 

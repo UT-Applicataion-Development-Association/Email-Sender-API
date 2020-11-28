@@ -12,10 +12,12 @@ app.register_blueprint(mail.mailRoutes, url_prefix="/mail")
 
 
 @app.route("/")
+@cross_origin()
 def handler():
     return "hello"
 
 
 @app.route('/mail')
+@cross_origin()
 def manager():
     return "mail page"

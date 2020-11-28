@@ -10,3 +10,9 @@ mailRoutes = Blueprint('mailRoutes', __name__)
 def handler():
     mail.send_email(request.get_json())
     return "Successfully sent"
+
+
+@mailRoutes.route("/attachmentUpload", methods=["POST"], strict_slashes=False)
+@cross_origin()
+def attachment_handler():
+    return mail.upload_attachment(request.get_json())
