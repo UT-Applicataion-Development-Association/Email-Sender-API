@@ -6,7 +6,6 @@ app = Flask(__name__)
 app.config.from_object('server.config.Config')
 email = Mail()
 cors = CORS(app)
-
 # app.register_blueprint(user.userRoutes, url_prefix="/user")
 app.register_blueprint(mail.mailRoutes, url_prefix="/mail")
 
