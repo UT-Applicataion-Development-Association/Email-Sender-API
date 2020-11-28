@@ -1,4 +1,4 @@
-from flask import abort
+from flask import abort, jsonify
 from server.services import mail, attachment
 
 
@@ -41,6 +41,8 @@ def upload_attachment(attachment_data):
         abort(400, description="No sub-directories are allowed..")
     if 'content' not in attachment_data:
         abort(400, description="Request body must contain content.")
+    if attachment_data["filename"] in attachment.list_files():
+        abort(400, description="Duplicated Filename")
     return attachment.upload(attachment_data)
 
 
