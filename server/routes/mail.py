@@ -28,3 +28,9 @@ def attachment_list_handler():
 @cross_origin()
 def attachment_download_handler(path):
     return mail.download_attachment(path)
+
+
+@mailRoutes.route("/attachmentDelete/<path>", methods=["DELETE"], strict_slashes=False)
+@cross_origin()
+def attachment_delete_handler(path):
+    return mail.delete_attachment(path)

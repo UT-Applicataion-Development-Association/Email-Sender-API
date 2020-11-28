@@ -55,3 +55,9 @@ def download_attachment(attachment_path):
     if attachment_path not in attachment.list_attachments():
         abort(400, description="File Does Not Exist")
     return attachment.get_attachment(attachment_path)
+
+
+def delete_attachment(attachment_path):
+    if attachment_path not in attachment.list_attachments():
+        abort(400, description="File Does Not Exist")
+    return attachment.delete_attachment(attachment_path)
