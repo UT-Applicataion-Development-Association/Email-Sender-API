@@ -35,11 +35,20 @@ def send_email(mail_data):
     mail.send(confirmed_mail_data)
 
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in {'txt', 'pdf', 'png', 'jpg', 'jpeg'}
+
+
 def upload_attachment(attachment_data):
     if 'filename' not in attachment_data:
         abort(400, description="Request body must contain filename.")
+    if attachment_data['filename'] == '':
+        abort(400, description="No files selected.")
     if "/" in attachment_data['filename']:
-        abort(400, description="No sub-directories are allowed..")
+        abort(400, description="No sub-directories are allowed.")
+    if not allowed_file(attachment_data['filename']):
+        abort(400, description="File type not supported.")
     if 'content' not in attachment_data:
         abort(400, description="Request body must contain content.")
     if attachment_data["filename"] in attachment.list_attachments():
