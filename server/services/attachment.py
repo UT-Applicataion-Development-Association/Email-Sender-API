@@ -4,7 +4,7 @@ import server
 from flask import send_from_directory
 
 
-def upload(attachment_data):
+def post_attachment(attachment_data):
     UPLOAD_FILE_DIRECTORY = server.app.config["UPLOAD_DIR"]
 
     if not os.path.exists(UPLOAD_FILE_DIRECTORY):
@@ -17,10 +17,9 @@ def upload(attachment_data):
     return "File Uploaded Successfully", 201
 
 
-def list_files():
+def list_attachments():
     UPLOAD_FILE_DIRECTORY = server.app.config["UPLOAD_DIR"]
     files = []
-    print(os.getcwd())
     for filename in os.listdir(UPLOAD_FILE_DIRECTORY):
         path = os.path.join(UPLOAD_FILE_DIRECTORY, filename)
         if os.path.isfile(path):
@@ -28,7 +27,7 @@ def list_files():
     return files
 
 
-def get_file(attachment_path):
+def get_attachment(attachment_path):
     UPLOAD_FILE_DIRECTORY = server.app.config["UPLOAD_DIR"]
     root_dir = os.getcwd()
     return send_from_directory(os.path.join(root_dir, UPLOAD_FILE_DIRECTORY), attachment_path, as_attachment=True)

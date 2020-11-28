@@ -21,7 +21,7 @@ def attachment_upload_handler():
 @mailRoutes.route("/attachmentList", methods=["GET"], strict_slashes=False)
 @cross_origin()
 def attachment_list_handler():
-    return mail.list_attachment()
+    return mail.list_attachments()
 
 
 @mailRoutes.route("/attachmentDownload/<path>", methods=["GET"], strict_slashes=False)

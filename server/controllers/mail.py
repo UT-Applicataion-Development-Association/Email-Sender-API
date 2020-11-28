@@ -42,16 +42,16 @@ def upload_attachment(attachment_data):
         abort(400, description="No sub-directories are allowed..")
     if 'content' not in attachment_data:
         abort(400, description="Request body must contain content.")
-    if attachment_data["filename"] in attachment.list_files():
+    if attachment_data["filename"] in attachment.list_attachments():
         abort(400, description="Duplicated Filename")
-    return attachment.upload(attachment_data)
+    return attachment.post_attachment(attachment_data)
 
 
-def list_attachment():
-    return jsonify(attachment.list_files())
+def list_attachments():
+    return jsonify(attachment.list_attachments())
 
 
 def download_attachment(attachment_path):
-    if attachment_path not in attachment.list_files():
+    if attachment_path not in attachment.list_attachments():
         abort(400, description="File Does Not Exist")
-    return attachment.get_file(attachment_path)
+    return attachment.get_attachment(attachment_path)
