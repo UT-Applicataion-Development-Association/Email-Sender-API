@@ -17,7 +17,8 @@ def send_email(mail_data):
     # if 'attachment' not in mail_data:
     #     abort(400, description="Request body must contain attachment list.")
 
-    parse_recipient = lambda recipient_list: [email_dict['email'] for email_dict in recipient_list]
+    parse_recipient = lambda recipient_list: [email_dict['email'] for email_dict
+                                              in recipient_list]
     # parse email parameters
     confirmed_mail_data = {
         'subject': mail_data['subject'],
@@ -46,7 +47,11 @@ def upload_attachment(attachment_data):
     return attachment.upload(attachment_data)
 
 
-def get_attachment_list():
+def list_attachment():
     return jsonify(attachment.list_files())
 
 
+def download_attachment(attachment_path):
+    if attachment_path not in attachment.list_files():
+        abort(400, description="File Does Not Exist")
+    return attachment.get_file(attachment_path)
