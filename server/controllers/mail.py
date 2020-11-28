@@ -47,8 +47,13 @@ def upload_attachment(attachment_data):
     return attachment.post_attachment(attachment_data)
 
 
-def list_attachments():
+def list_all_attachments():
     return jsonify(attachment.list_attachments())
+
+
+def delete_all_attachments():
+    [delete_attachment(attachment_path) for attachment_path in attachment.list_attachments()]
+    return "All Files Deleted Successfully", 201
 
 
 def download_attachment(attachment_path):
@@ -60,4 +65,5 @@ def download_attachment(attachment_path):
 def delete_attachment(attachment_path):
     if attachment_path not in attachment.list_attachments():
         abort(400, description="File Does Not Exist")
-    return attachment.delete_attachment(attachment_path)
+    attachment.delete_attachment(attachment_path)
+    return "File Deleted Successfully", 201

@@ -37,7 +37,6 @@ def delete_attachment(attachment_path):
     UPLOAD_FILE_DIRECTORY = server.app.config["UPLOAD_DIR"]
     root_dir = os.getcwd()
     os.remove(os.path.join(root_dir, UPLOAD_FILE_DIRECTORY, attachment_path))
-    return "File Deleted Successfully", 201
 
 
 
