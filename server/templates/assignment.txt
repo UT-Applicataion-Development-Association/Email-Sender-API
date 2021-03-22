@@ -1,0 +1,1 @@
+Hello [name], congratulations on being accepted to [team]! Hope to see you soon on [event] at [time].
