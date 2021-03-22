@@ -8,7 +8,7 @@ templateRoutes = Blueprint('templateRoutes', __name__)
 
 @templateRoutes.route("/", methods=["GET"], strict_slashes=False)
 @cross_origin()
-def template_list_handler():
+def template_handler():
     templateName = request.args.get('templateName')
     if templateName:
         return template.get_template(templateName)
