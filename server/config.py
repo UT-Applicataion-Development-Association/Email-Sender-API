@@ -10,6 +10,7 @@ class Config(object):
     MAIL_USE_TLS = environ.get('MAIL_USE_TLS').upper() == 'TRUE'
     MAIL_USE_SSL = environ.get('MAIL_USE_SSL').upper() == 'TRUE'
     UPLOAD_DIR = "uploaded_files"
+    TEMPLATE_DIR = "templates"
 
 
 class GmailConfig(object):
