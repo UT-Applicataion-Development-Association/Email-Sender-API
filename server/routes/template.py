@@ -14,3 +14,10 @@ def template_handler():
         return template.get_template(templateName)
     else:
         return template.list_templates()
+
+
+@templateRoutes.route("/mail", methods=["POST"], strict_slashes=False)
+@cross_origin()
+def mail_handler():
+    template.send_template_mail(request.get_json())
+    return "Successfully sent"

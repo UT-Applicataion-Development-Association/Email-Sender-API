@@ -24,6 +24,23 @@ def get_template(template_name):
             "fillin": read_fillin(template_name)}
 
 
+def process_template_mail(template_name, fillins):
+    if not validate_template(template_name):
+        abort(400, description="Template is invalid or does not exist!")
+    verified_fillins = []
+    for fillin in fillins:
+        if not validate_fillin(fillin, template_name):
+            abort(400, description="Some fillins are invalid!")
+        verified_fillins.append(list(fillin.values()))
+    mail_bodies = []
+    for fillin in verified_fillins:
+        content = read_template(template_name)
+        for val in fillin:
+            content = content.replace("[]", val, 1)
+        mail_bodies.append(content)
+    return mail_bodies
+
+
 def find_templates():
     """get all template file names"""
     TEMPLATE_DIRECTORY = server.app.config["TEMPLATE_DIR"]
@@ -58,6 +75,15 @@ def validate_template(template_name):
         blank_count = read_template(template_name).count("[]")
         fill_count = len(read_fillin(template_name))
         return blank_count == fill_count
+    except IOError:
+        return False
+
+
+def validate_fillin(fillin, template_name):
+    try:
+        model = read_fillin(template_name)
+        actual = list(fillin.keys())
+        return model == actual
     except IOError:
         return False
 
